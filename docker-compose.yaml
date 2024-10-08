@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:4
+    container_name: mongo_secure_privacy
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=mydb # Removed quotes around the variable
+    volumes:
+      - ./mongo-init:/docker-entrypoint-initdb.d
+
+  mongoexpress:
+    image: mongo-express
+    container_name: mongo_express_secure_privacy
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017/mydb # Specify the database
+    depends_on:
+      - mongo
+    restart: always
