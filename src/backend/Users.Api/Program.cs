@@ -1,10 +1,23 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using User.Api.Configurations;
+using Newtonsoft.Json.Serialization;
 using User.Api.Repositories;
 using User.Api.Services;
+using Users.Api.Configurations;
+using Users.Api.Repositories;
+using Users.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 builder.Services.Configure<CryptographyConfig>(builder.Configuration.GetSection("Encryption"));
 
@@ -25,11 +38,11 @@ builder.Services.AddScoped<IUserRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseCors();
 
 app.UseSwagger();
 app.UseSwaggerUI();
