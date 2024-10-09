@@ -10,7 +10,7 @@ public class GetProduct
 
     [JsonProperty("price")] public decimal Price { get; set; }
 
-    [JsonProperty("categories")] public List<Category> Categories { get; set; } = new();
+    [JsonProperty("categories")] public IEnumerable<Category> Categories { get; set; } = new List<Category>();
 
     [JsonProperty("created_at")] public DateTime CreatedAt { get; set; }
     

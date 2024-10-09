@@ -1,4 +1,5 @@
 ﻿using Products.Api.Models.Dto;
+using Products.Api.Repositories;
 
 namespace Products.Api.Services;
 
@@ -17,9 +18,10 @@ public class ProductsService : IProductsService
 
     public async Task CreateAsync(CreateProduct product)
     {
-        var isValidCategory = await _categoryService.IsExist(product.Categories, CancellationToken.None);
+        var categories = await _categoryService.GetAsync(product.Categories, CancellationToken.None);
+        var categoriesList = categories.ToList();
 
-        if (!isValidCategory)
+        if (categoriesList.Count() != product.Categories.Count)
         {
             //TODO: Use custom exception
             throw new BadHttpRequestException("Invalid category id(s)");
@@ -27,7 +29,7 @@ public class ProductsService : IProductsService
 
         try
         {
-            await _productRepository.CreateAsync(product);
+            await _productRepository.CreateAsync(product, categoriesList);
         }
         catch (Exception ex)
         {

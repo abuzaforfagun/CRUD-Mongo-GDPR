@@ -4,47 +4,9 @@ namespace Products.Api.Services;
 
 public interface ICategoryService
 {
-    Task<List<Category>> GetAsync(CancellationToken cancellationToken);
+    Task<IEnumerable<Category>> GetAsync(CancellationToken cancellationToken);
     
-    Task<List<GetProduct>> GetProductsAsync(string categoryId, CancellationToken cancellationToken);
+    Task<IEnumerable<GetProduct>> GetProductsAsync(string categoryId, CancellationToken cancellationToken);
 
-    Task<bool> IsExist(List<string> categoryIds, CancellationToken cancellationToken);
-}
-
-public interface ICategoryRepository
-{
-    Task<List<Category>> GetAsync(CancellationToken cancellationToken);
-    Task<List<GetProduct>> GetProductsAsync(string categoryId, CancellationToken cancellationToken);
-    Task<bool> IsExist(List<string> categoryIds, CancellationToken cancellationToken);
-}
-public class CategoryService : ICategoryService
-{
-    private readonly ICategoryRepository _categoryRepository;
-
-    public CategoryService(ICategoryRepository categoryRepository)
-    {
-        _categoryRepository = categoryRepository;
-    }
-
-    public async Task<List<Category>> GetAsync(CancellationToken cancellationToken)
-    {
-        return await _categoryRepository.GetAsync(cancellationToken);
-    }
-
-    public async Task<List<GetProduct>> GetProductsAsync(string categoryId, CancellationToken cancellationToken)
-    {
-        var isValidCategory = await IsExist(new List<string> {categoryId}, cancellationToken);
-        if (!isValidCategory)
-        {
-            //TODO: Use custom exception
-            throw new BadHttpRequestException("Invalid category id(s)");
-        }
-
-        return await _categoryRepository.GetProductsAsync(categoryId, cancellationToken);
-    }
-
-    public async Task<bool> IsExist(List<string> categoryIds, CancellationToken cancellationToken)
-    {
-        return await _categoryRepository.IsExist(categoryIds, cancellationToken);
-    }
+    Task<IEnumerable<Category>> GetAsync(List<string> categoryIds, CancellationToken cancellationToken);
 }

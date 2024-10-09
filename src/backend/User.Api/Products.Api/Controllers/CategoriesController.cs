@@ -20,7 +20,7 @@ public class CategoriesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
     {
-        var products = new List<Category>();
+        IEnumerable<Category> products = new List<Category>();
 
         try
         {
@@ -38,7 +38,7 @@ public class CategoriesController : ControllerBase
     [HttpGet("{categoryId}/products")]
     public async Task<IActionResult> GetProductsAsync(string categoryId, CancellationToken cancellationToken)
     {
-        var products = new List<GetProduct>();
+        IEnumerable<GetProduct> products = new List<GetProduct>();
 
         try
         {
