@@ -2,21 +2,6 @@
 
 namespace Products.Api.Services;
 
-public interface ICategoryService
-{
-    Task<List<Category>> GetAsync(CancellationToken cancellationToken);
-    
-    Task<List<GetProduct>> GetProductsAsync(string categoryId, CancellationToken cancellationToken);
-
-    Task<bool> IsExist(List<string> categoryIds, CancellationToken cancellationToken);
-}
-
-public interface ICategoryRepository
-{
-    Task<List<Category>> GetAsync(CancellationToken cancellationToken);
-    Task<List<GetProduct>> GetProductsAsync(string categoryId, CancellationToken cancellationToken);
-    Task<bool> IsExist(List<string> categoryIds, CancellationToken cancellationToken);
-}
 public class CategoryService : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
