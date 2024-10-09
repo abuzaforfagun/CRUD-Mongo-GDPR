@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+COPY ./src/backend/Users.Api/*.csproj ./src/backend/Users.Api/
+RUN dotnet restore ./src/backend/Users.Api/Users.Api.csproj
+
+COPY ./src/backend/Users.Api/ ./src/backend/Users.Api/
+WORKDIR /app/src/backend/Users.Api
+RUN dotnet publish -c Release -o /app/out
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+COPY --from=build /app/out .
+
+ENTRYPOINT ["dotnet", "Users.Api.dll"]
