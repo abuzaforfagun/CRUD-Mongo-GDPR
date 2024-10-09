@@ -1,12 +1,12 @@
 ﻿using MongoDB.Bson;
 
-namespace User.Api.Models.Data;
+namespace Users.Api.Models.Data;
 
 public class User
 {
     public ObjectId Id { get; set; }
     public string Name { get; set; }
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
     public string CPRNumber { get; set; }
     public string Email { get; set; }
     public DateTime CreatedAt { get; set; }

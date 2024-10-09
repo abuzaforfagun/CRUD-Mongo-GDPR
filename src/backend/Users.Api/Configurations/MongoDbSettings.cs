@@ -1,4 +1,4 @@
-﻿namespace User.Api.Configurations;
+﻿namespace Users.Api.Configurations;
 
 public class MongoDbSettings
 {

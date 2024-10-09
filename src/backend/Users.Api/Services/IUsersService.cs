@@ -1,6 +1,6 @@
-﻿using User.Api.Models.Dto;
+﻿using Users.Api.Models.Dto;
 
-namespace User.Api.Services;
+namespace Users.Api.Services;
 
 public interface IUsersService
 {

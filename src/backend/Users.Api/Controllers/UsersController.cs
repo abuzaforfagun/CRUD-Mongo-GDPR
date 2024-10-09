@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using User.Api.Models.Dto;
 using User.Api.Services;
+using Users.Api.Models.Dto;
+using Users.Api.Services;
 
-namespace User.Api.Controllers;
+namespace Users.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

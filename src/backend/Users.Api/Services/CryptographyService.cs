@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
-using User.Api.Configurations;
+using Users.Api.Configurations;
 
 namespace User.Api.Services;
 

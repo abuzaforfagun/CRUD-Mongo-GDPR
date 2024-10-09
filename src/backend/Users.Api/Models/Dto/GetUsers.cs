@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace User.Api.Models.Dto;
+﻿namespace Users.Api.Models.Dto;
 
 public class GetUsers
 {
-    [JsonProperty("users")]
     public IEnumerable<User> Users { get; set; }
     //TODO: Implement pagination
 
@@ -16,11 +13,13 @@ public class GetUsers
 
 public class User
 {
-    [JsonProperty("id")] public string Id { get; set; } = string.Empty;
+    public string Id { get; set; } = string.Empty;
 
-    [JsonProperty("name")] public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
-    [JsonProperty("email")] public string Email { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string? Phone { get; set; }
+    public string? CPRNumber { get; set; }
 
-    [JsonProperty("created_at")] public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

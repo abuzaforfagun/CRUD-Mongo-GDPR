@@ -39,7 +39,10 @@ public class ProductRepository : IProductRepository
 
     public async Task<List<GetProduct>> GetAsync(CancellationToken cancellationToken)
     {
-        var products = await _productsCollection.Find(_ => true).ToListAsync(cancellationToken);
+        var products = await _productsCollection
+            .Find(_ => true)
+            .SortByDescending(p => p.CreatedAt)
+            .ToListAsync(cancellationToken);
 
         return products.Select(p => new GetProduct
         {

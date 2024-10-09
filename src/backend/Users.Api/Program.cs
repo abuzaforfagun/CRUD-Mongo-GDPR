@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Newtonsoft.Json.Serialization;
 using User.Api.Repositories;
 using User.Api.Services;
 using Users.Api.Configurations;
