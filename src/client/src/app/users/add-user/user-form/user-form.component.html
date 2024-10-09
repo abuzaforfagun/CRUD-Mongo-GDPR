@@ -75,17 +75,14 @@
     <input
       id="phoneNumber"
       type="text"
-      formControlName="phoneNumber"
+      formControlName="phone"
       class="form-control"
     />
     <div
-      *ngIf="
-        userForm.get('phoneNumber')?.invalid &&
-        userForm.get('phoneNumber')?.touched
-      "
+      *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
       class="text-danger"
     >
-      <small *ngIf="userForm.get('phoneNumber')?.errors?.['required']"
+      <small *ngIf="userForm.get('phone')?.errors?.['required']"
         >Phone Number is required.</small
       >
     </div>

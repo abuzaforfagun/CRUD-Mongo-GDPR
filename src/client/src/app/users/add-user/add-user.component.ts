@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { selectUserCreated } from '../ngrx/user.selectos';
+import { selectUserCreated } from '../ngrx/user.selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as UserActions from '../ngrx/user.actions';
 import { UserState } from '../ngrx/user.reducer';
@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      phoneNumber: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       cprNumber: ['', [Validators.required]],
     });
   }

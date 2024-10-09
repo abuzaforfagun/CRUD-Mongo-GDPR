@@ -10,9 +10,10 @@ import { userReducer } from './ngrx/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './ngrx/user.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { UserTableComponent } from './user-table/user-table.component';
 
 @NgModule({
-  declarations: [UserListComponent, AddUserComponent, UserFormComponent],
+  declarations: [UserListComponent, AddUserComponent, UserFormComponent, UserTableComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

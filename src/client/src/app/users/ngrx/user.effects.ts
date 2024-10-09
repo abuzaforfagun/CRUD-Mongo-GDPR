@@ -20,5 +20,21 @@ export class UserEffects {
     )
   );
 
+  loadUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.loadUsers),
+      mergeMap(() =>
+        this.http.get<{ users: any[] }>('http://localhost:5036/api/users').pipe(
+          map((response) =>
+            UserActions.loadUsersSuccess({ users: response.users })
+          ),
+          catchError((error) =>
+            of(UserActions.loadUsersFailure({ error: error.message }))
+          )
+        )
+      )
+    )
+  );
+
   constructor(private actions$: Actions, private http: HttpClient) {}
 }

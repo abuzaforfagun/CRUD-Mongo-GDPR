@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as UserActions from '../../ngrx/user.actions';
 import { UserState } from '../../ngrx/user.reducer';
 import { Observable, of } from 'rxjs';
-import { selectUserCreated } from '../../ngrx/user.selectos';
+import { selectUserCreated } from '../../ngrx/user.selectors';
 
 @Component({
   selector: 'app-user-form',

@@ -5,12 +5,14 @@ export interface UserState {
   loading: boolean;
   userCreated: boolean;
   error: string | null;
+  users: any[];
 }
 
 export const initialState: UserState = {
   loading: false,
   userCreated: false,
   error: null,
+  users: [],
 };
 
 export const userReducer = createReducer(
@@ -38,5 +40,20 @@ export const userReducer = createReducer(
       loading: false,
       error: error,
     };
-  })
+  }),
+  on(UserActions.loadUsers, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(UserActions.loadUsersSuccess, (state, { users }) => ({
+    ...state,
+    loading: false,
+    users,
+  })),
+  on(UserActions.loadUsersFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  }))
 );
