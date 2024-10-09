@@ -1,6 +1,4 @@
-﻿using System.Runtime.ConstrainedExecution;
-
-namespace User.Api.Extensions;
+﻿namespace User.Api.Extensions;
 
 public static class StringExtensions
 {
