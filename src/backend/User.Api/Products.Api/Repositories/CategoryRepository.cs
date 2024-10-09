@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using Products.Api.Configurations;
 using Products.Api.Models.Data;
 using Products.Api.Models.Dto;
-using Category = Products.Api.Models.Data.Category;
 
 namespace Products.Api.Repositories;
 
@@ -52,7 +51,14 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<IEnumerable<Models.Dto.Category>> GetAsync(List<string> categoryIds, CancellationToken cancellationToken)
     {
-        var categoryObjectIds = categoryIds.Select(c => ObjectId.Parse(c));
+        var categoryObjectIds = categoryIds
+            .Where(id => ObjectId.TryParse(id, out _))
+            .Select(ObjectId.Parse).ToList();
+
+        if (categoryObjectIds!.Count() != categoryIds.Count)
+        {
+            throw new BadHttpRequestException("Invalid category id");
+        }
 
         var categories = await _categoriesCollection.Find(c => categoryObjectIds.Contains(c.Id))
             .ToListAsync(cancellationToken);

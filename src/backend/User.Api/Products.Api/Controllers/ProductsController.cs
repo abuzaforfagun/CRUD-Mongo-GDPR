@@ -25,6 +25,10 @@ public class ProductsController : ControllerBase
         {
             await _productsService.CreateAsync(payload);
         }
+        catch (BadHttpRequestException)
+        {
+            return BadRequest();
+        }
         catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError);

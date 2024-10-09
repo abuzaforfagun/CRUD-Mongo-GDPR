@@ -44,6 +44,10 @@ public class CategoriesController : ControllerBase
         {
             products = await _categoryService.GetProductsAsync(categoryId, cancellationToken);
         }
+        catch (BadHttpRequestException)
+        {
+            return BadRequest();
+        }
         catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError);

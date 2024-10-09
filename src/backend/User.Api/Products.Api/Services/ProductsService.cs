@@ -18,7 +18,16 @@ public class ProductsService : IProductsService
 
     public async Task CreateAsync(CreateProduct product)
     {
-        var categories = await _categoryService.GetAsync(product.Categories, CancellationToken.None);
+        IEnumerable<Category> categories;
+        try
+        {
+            categories = await _categoryService.GetAsync(product.Categories, CancellationToken.None);
+        }
+        catch (BadHttpRequestException ex)
+        {
+            _logger.LogError("Unable to get categories", ex);
+            throw;
+        }
         var categoriesList = categories.ToList();
 
         if (categoriesList.Count() != product.Categories.Count)
