@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using User.Api.Extensions;
 
-namespace User.Api.Dto
+namespace User.Api.Models.Dto
 {
     public class CreateUser
     {

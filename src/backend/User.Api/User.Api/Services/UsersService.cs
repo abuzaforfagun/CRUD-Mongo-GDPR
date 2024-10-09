@@ -1,4 +1,4 @@
-﻿using User.Api.Dto;
+﻿using User.Api.Models.Dto;
 using User.Api.Repositories;
 
 namespace User.Api.Services
@@ -36,8 +36,18 @@ namespace User.Api.Services
             }
         }
 
-        public async Task<GetUserDetails?> GetUserAsync(Guid id) => await _repository.GetAsync(id);
+        public async Task<GetUserDetails?> GetUserAsync(string id, CancellationToken cancellationToken)
+        {
+            var user = await _repository.GetAsync(id, cancellationToken);
 
-        public async Task<GetUsers> GetUsersAsync() => await _repository.GetAllAsync();
+            if (user.CPRNumber != null)
+            {
+                user.CPRNumber = _cryptographyService.Decrypt(user.CPRNumber);
+            }
+
+            return user;
+        }
+
+        public async Task<GetUsers> GetUsersAsync(CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
     }
 }

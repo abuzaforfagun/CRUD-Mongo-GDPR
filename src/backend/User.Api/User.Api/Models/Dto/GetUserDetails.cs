@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace User.Api.Dto;
+namespace User.Api.Models.Dto;
 
 public class GetUserDetails
 {
-    [JsonProperty("id")]
-    public Guid Id { get; set; }
+    [JsonProperty("id")] public string Id { get; set; } = string.Empty;
 
     [JsonProperty("name")] public string Name { get; set; } = string.Empty;
 

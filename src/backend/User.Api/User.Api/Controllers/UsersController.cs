@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using User.Api.Dto;
+using User.Api.Models.Dto;
 using User.Api.Services;
 
 namespace User.Api.Controllers;
@@ -45,12 +45,12 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetUserDetails), StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(NotFoundResult))]
-    public async Task<IActionResult> GetAsync(Guid id)
+    public async Task<IActionResult> GetAsync(string id, CancellationToken cancellationToken)
     {
         GetUserDetails? user;
         try
         {
-            user = await _service.GetUser(id);
+            user = await _service.GetUserAsync(id, cancellationToken);
 
             if (user == null)
             {
@@ -65,13 +65,14 @@ public class UsersController : ControllerBase
     }
 
     [ProducesResponseType(typeof(GetUsers), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllAsync()
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
         var users = new GetUsers();
 
         try
         {
-            users = await _service.GetUsersAsync();
+            users = await _service.GetUsersAsync(cancellationToken);
         }
         catch (Exception)
         {

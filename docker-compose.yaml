@@ -6,9 +6,13 @@ services:
     container_name: mongo_secure_privacy
     restart: always
     environment:
-      - MONGO_INITDB_DATABASE=mydb # Removed quotes around the variable
+      - MONGO_INITDB_DATABASE=secure-privacy
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=Test123!
     volumes:
       - ./mongo-init:/docker-entrypoint-initdb.d
+    ports:
+      - "27017:27017"
 
   mongoexpress:
     image: mongo-express
@@ -16,7 +20,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017/mydb # Specify the database
+      - ME_CONFIG_MONGODB_URL=mongodb://admin:Test123!@mongo:27017
     depends_on:
       - mongo
     restart: always

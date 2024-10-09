@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Options;
 using User.Api.Configurations;
 
 namespace User.Api.Services;
@@ -18,14 +19,15 @@ public class CryptographyService : ICryptographyService
     private readonly byte[] _iv;
     private readonly CryptographyConfig _config;
 
-    public CryptographyService(CryptographyConfig config)
+    public CryptographyService(IOptions<CryptographyConfig> config)
     {
-        if (string.IsNullOrWhiteSpace(config.SecretKey))
+        _config = config.Value;
+        if (string.IsNullOrWhiteSpace(_config.SecretKey))
         {
             throw new Exception("Secret key is not configured");
         }
 
-        var keys = config.SecretKey.Split(":");
+        var keys = _config.SecretKey.Split(":");
         if (keys.Length != 2)
         {
             throw new Exception("Secret key is invalid");
@@ -33,8 +35,6 @@ public class CryptographyService : ICryptographyService
 
         _key = Convert.FromBase64String(keys[0]);
         _iv = Convert.FromBase64String(keys[1]);
-
-        _config = config;
 
     }
 
@@ -66,7 +66,9 @@ public class CryptographyService : ICryptographyService
         using var swEncrypt = new StreamWriter(csEncrypt);
         
         swEncrypt.Write(plainText);
-        
+        swEncrypt.Flush();
+        csEncrypt.FlushFinalBlock();
+
         return Convert.ToBase64String(msEncrypt.ToArray());
     }
 
