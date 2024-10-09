@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using User.Api.Configurations;
-using User.Api.Models.Dto;
+using User.Api.Repositories;
+using Users.Api.Configurations;
+using Users.Api.Models.Dto;
 
-namespace User.Api.Repositories;
+namespace Users.Api.Repositories;
 
 public class UsersRepository : IUserRepository
 {
@@ -36,20 +37,17 @@ public class UsersRepository : IUserRepository
     }
         
 
-    public async Task<GetUsers> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Models.Dto.User>> GetAllAsync(CancellationToken cancellationToken)
     {
         var dbUsers = await _collection.Find(_ => true).ToListAsync(cancellationToken);
-        var dtos = dbUsers.Select(u => new Models.Dto.User
+        return dbUsers.Select(u => new Models.Dto.User
         {
             Id = u.Id.ToString(),
             Email = u.Email,
+            Phone = u.PhoneNumber,
+            CPRNumber = u.CPRNumber,
             Name = u.Name,
             CreatedAt = u.CreatedAt
         });
-
-        return new GetUsers
-        {
-            Users = dtos
-        };
     }
 }

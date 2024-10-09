@@ -1,7 +1,9 @@
-﻿using User.Api.Models.Dto;
-using User.Api.Repositories;
+﻿using User.Api.Repositories;
+using User.Api.Services;
+using Users.Api.Extensions;
+using Users.Api.Models.Dto;
 
-namespace User.Api.Services;
+namespace Users.Api.Services;
 
 public class UsersService : IUsersService
 {
@@ -48,5 +50,21 @@ public class UsersService : IUsersService
         return user;
     }
 
-    public async Task<GetUsers> GetUsersAsync(CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
+    public async Task<GetUsers> GetUsersAsync(CancellationToken cancellationToken)
+    {
+        var users = await _repository.GetAllAsync(cancellationToken);
+
+        return new GetUsers
+        {
+            Users = users.Select(u => new Models.Dto.User
+            {
+                Name = u.Name,
+                Email = u.Email.ToMaskedEmail(),
+                Phone = u.Phone?.ToMaskedPhoneNumber(),
+                CPRNumber = u.CPRNumber != null ? _cryptographyService.Decrypt(u.CPRNumber!).ToMaskedCPR() : null,
+                CreatedAt = u.CreatedAt
+            })
+        };
+
+    }
 }
