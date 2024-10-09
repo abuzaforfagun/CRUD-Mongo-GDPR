@@ -1,0 +1,121 @@
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+  class="p-4 border rounded shadow-sm bg-light"
+>
+  <div class="mb-2">
+    <label for="fullName" class="form-label">Full Name</label>
+    <input
+      id="fullName"
+      type="text"
+      formControlName="fullName"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        userForm.get('fullName')?.invalid && userForm.get('fullName')?.touched
+      "
+      class="text-danger"
+    >
+      <small *ngIf="userForm.get('fullName')?.errors?.['required']"
+        >Full Name is required.</small
+      >
+      <small *ngIf="userForm.get('fullName')?.errors?.['minlength']"
+        >Minimum length is 3 characters.</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-2">
+    <label for="email" class="form-label">Email</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      class="form-control"
+    />
+    <div
+      *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+      class="text-danger"
+    >
+      <small *ngIf="userForm.get('email')?.errors?.['required']"
+        >Email is required.</small
+      >
+      <small *ngIf="userForm.get('email')?.errors?.['email']"
+        >Invalid email format.</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-2">
+    <label for="password" class="form-label">Password</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        userForm.get('password')?.invalid && userForm.get('password')?.touched
+      "
+      class="text-danger"
+    >
+      <small *ngIf="userForm.get('password')?.errors?.['required']"
+        >Password is required.</small
+      >
+      <small *ngIf="userForm.get('password')?.errors?.['minlength']"
+        >Minimum length is 6 characters.</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-2">
+    <label for="phoneNumber" class="form-label">Phone Number</label>
+    <input
+      id="phoneNumber"
+      type="text"
+      formControlName="phoneNumber"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        userForm.get('phoneNumber')?.invalid &&
+        userForm.get('phoneNumber')?.touched
+      "
+      class="text-danger"
+    >
+      <small *ngIf="userForm.get('phoneNumber')?.errors?.['required']"
+        >Phone Number is required.</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-2">
+    <label for="cprNumber" class="form-label">CPR Number</label>
+    <input
+      id="cprNumber"
+      type="text"
+      formControlName="cprNumber"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        userForm.get('cprNumber')?.invalid && userForm.get('cprNumber')?.touched
+      "
+      class="text-danger"
+    >
+      <small *ngIf="userForm.get('cprNumber')?.errors?.['required']"
+        >CPR Number is required.</small
+      >
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary w-100"
+    [disabled]="userForm.invalid"
+  >
+    Register
+  </button>
+</form>

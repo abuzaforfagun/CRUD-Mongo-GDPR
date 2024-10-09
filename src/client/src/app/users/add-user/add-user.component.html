@@ -1,0 +1,8 @@
+<h2>Add User</h2>
+<div *ngIf="userCreated$ | async" class="alert alert-primary mt-2" role="alert">
+  User registered!
+</div>
+<app-user-form
+  [userForm]="userForm"
+  [onSubmit]="handleCreateUserSubmit.bind(this)"
+></app-user-form>
