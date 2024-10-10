@@ -13,12 +13,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UserTableComponent } from './user-table/user-table.component';
 
 @NgModule({
-  declarations: [UserListComponent, AddUserComponent, UserFormComponent, UserTableComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25 }),
+  declarations: [
+    UserListComponent,
+    AddUserComponent,
+    UserFormComponent,
+    UserTableComponent,
   ],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
 })
 export class UsersModule {}

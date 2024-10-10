@@ -10,6 +10,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { UserEffects } from './users/ngrx/user.effects';
 import { userReducer } from './users/ngrx/user.reducer';
+import { ProductsModule } from './products/products.module';
+import { productReducer } from './products/ngrx/product.reducer';
+import { ProductEffects } from './products/ngrx/product.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,8 +20,9 @@ import { userReducer } from './users/ngrx/user.reducer';
     BrowserModule,
     AppRoutingModule,
     UsersModule,
-    StoreModule.forRoot({ user: userReducer }),
-    EffectsModule.forRoot([UserEffects]),
+    ProductsModule,
+    StoreModule.forRoot({ user: userReducer, product: productReducer }),
+    EffectsModule.forRoot([UserEffects, ProductEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

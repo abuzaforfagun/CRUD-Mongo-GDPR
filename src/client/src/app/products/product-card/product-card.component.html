@@ -1,0 +1,19 @@
+<div class="card h-100">
+  <img
+    [src]="product.image || 'https://via.placeholder.com/300x200'"
+    class="card-img-top"
+    alt="Product Image"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <span *ngFor="let cat of product.categories">{{ cat.name }}</span>
+    </h6>
+    <p class="card-text">
+      {{ product.description || "This is a brief description of the product." }}
+    </p>
+    <h6 class="card-subtitle mb-2 text-muted">
+      {{ product.price | currency }}
+    </h6>
+  </div>
+</div>

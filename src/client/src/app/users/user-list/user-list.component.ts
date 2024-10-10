@@ -19,7 +19,5 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(UserActions.loadUsers());
-
-    this.users$.subscribe((d) => console.log(d));
   }
 }
