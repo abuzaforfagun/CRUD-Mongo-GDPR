@@ -18,7 +18,7 @@ public class UsersRepository : IUserRepository
 
     public async Task CreateAsync(string name, string email, string cprNumber, string? phone, string password)
     {
-        var model = new Models.Data.User(name, email, phone, cprNumber);
+        var model = new Models.Data.User(name, email, phone, cprNumber, password);
 
         await _collection.InsertOneAsync(model);
     }
