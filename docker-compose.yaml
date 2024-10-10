@@ -34,6 +34,7 @@ services:
       - MongoDb__DatabaseName=secure-privacy
       - MongoDb__CollectionName=users
       - ASPNETCORE_URLS=http://*:5001
+      - ClientApp=http://localhost:4300
     depends_on:
       - mongo
   products-api:
@@ -46,8 +47,9 @@ services:
       - MongoDb__ConnectionString=mongodb://admin:Test123!@mongo:27017
       - MongoDb__DatabaseName=secure-privacy
       - MongoDb__CategoryCollectionName=categories
-      - MongoDb__ProductCollectionName=categories
+      - MongoDb__ProductCollectionName=products
       - ASPNETCORE_URLS=http://*:5002
+      - ClientApp=http://localhost:4300
     depends_on:
       - mongo
   gateway:
@@ -60,3 +62,14 @@ services:
     depends_on:
       - users-api
       - products-api
+  client-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.Client
+      args:
+        USERS_API_URL: "http://localhost:9000/users"
+        PRODUCTS_API_URL: "http://localhost:9000/products"
+    ports:
+      - "4300:80"
+    depends_on:
+      - gateway

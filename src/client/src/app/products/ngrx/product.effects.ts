@@ -3,6 +3,7 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, mergeMap, of } from 'rxjs';
 import * as ProductActions from './product.actions';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProductEffects {
@@ -10,7 +11,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.loadProducts),
       mergeMap(() =>
-        this.http.get<any[]>('http://localhost:5087/api/products').pipe(
+        this.http.get<any[]>(`${environment.productsApi}/api/products`).pipe(
           map((response) =>
             ProductActions.loadProductsSuccess({ products: response })
           ),
