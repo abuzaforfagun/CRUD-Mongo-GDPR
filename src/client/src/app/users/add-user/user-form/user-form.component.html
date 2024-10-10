@@ -107,6 +107,28 @@
       >
     </div>
   </div>
+  <div class="mb-3 form-check">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      id="gdprConsent"
+      formControlName="gdprConsent"
+    />
+    <label class="form-check-label" for="gdprConsent">
+      I agree to the
+      <a href="#" target="_blank">Privacy Policy</a> and consent to my data
+      being processed in accordance with GDPR.
+    </label>
+    <div
+      *ngIf="
+        userForm.get('gdprConsent')?.invalid &&
+        userForm.get('gdprConsent')?.touched
+      "
+      class="text-danger"
+    >
+      <small>You must agree to the Privacy Policy to proceed.</small>
+    </div>
+  </div>
 
   <button
     type="submit"

@@ -25,6 +25,7 @@ export class AddUserComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', [Validators.required]],
       cprNumber: ['', [Validators.required]],
+      gdprConsent: [false, Validators.requiredTrue],
     });
   }
 
