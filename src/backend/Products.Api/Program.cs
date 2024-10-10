@@ -6,11 +6,13 @@ using Products.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var clientApp = builder.Configuration.GetValue<string>("ClientApp");
+Console.WriteLine($"ClientApp URL: {clientApp}");
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(clientApp!)
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
